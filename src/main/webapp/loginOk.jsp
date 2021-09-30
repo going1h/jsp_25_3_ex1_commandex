@@ -38,9 +38,12 @@
 			</script>
 	<%	
 		} else if(checkNum == 1 ) { //로그인 성공
-			String name = dao.getMemberName(id);
+			MemberDTO dto = dao.getMember(id);//dto 객체에 모든 회원정보가 저장됨
+			String name = dto.getName();
+			String uid = dto.getId();
 			session.setAttribute("name", name);
-			//out.println(name);
+			session.setAttribute("id", uid);
+			session.setAttribute("ValidMem", "yes");//로그인 유효한 회원 판별값
 			response.sendRedirect("main.jsp");
 		}
 	

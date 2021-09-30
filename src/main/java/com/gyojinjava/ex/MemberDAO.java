@@ -154,14 +154,14 @@ public class MemberDAO {
 		return ri;
 	}
 	
-	public String getMemberName(String id) {
+	public MemberDTO getMember(String id) {
 		
-		String memberName="";
-		
+				
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String query = "select name from memberex where id = ?";
+		String query = "select * from memberex where id = ?";
+		MemberDTO dto = new MemberDTO();
 				
 		try {
 			conn = getConnection();
@@ -171,7 +171,11 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				memberName = rs.getString("name");
+				dto.setId(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+				dto.setName(rs.getString("name"));
+				dto.setEmail(rs.getString("email"));
+				dto.setAddress(rs.getString("address"));
 			}
 			
 			
@@ -189,7 +193,7 @@ public class MemberDAO {
 			}
 		}
 		
-		return memberName;
+		return dto;
 	}
 	
 	
