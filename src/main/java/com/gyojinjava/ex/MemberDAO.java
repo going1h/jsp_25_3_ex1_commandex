@@ -196,6 +196,44 @@ public class MemberDAO {
 		return dto;
 	}
 	
+	public int updateMember(MemberDTO dto) {
+		int ri = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String query = "update memberex set pw=?, email=?, address=? where id=?";		
+		
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(query);
+			
+			//pstmt.setString(1, dto.getId());
+			pstmt.setString(1, dto.getPw());
+			//pstmt.setString(3, dto.getName());
+			pstmt.setString(2, dto.getEmail());
+			pstmt.setString(3, dto.getAddress());
+			pstmt.setString(4, dto.getId());
+			
+			ri = pstmt.executeUpdate();	//회원정보수정에 성공하면 ri=1 로 변경됨
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
+		
+		return ri;
+		
+	}
+	
 	
 	
 	
