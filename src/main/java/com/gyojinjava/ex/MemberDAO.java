@@ -126,14 +126,14 @@ public class MemberDAO {
 				dbPw = rs.getString("pw");
 				
 				if(dbPw.equals(pw)) {
-					ri = MemberDAO.MEMBER_LOGIN_SUCCESS;//로그인 성공
+					ri = MemberDAO.MEMBER_LOGIN_SUCCESS;//로그인 성공 1
 				} else {
-					ri = MemberDAO.MEMBER_LOGIN_PW_NO_GOOD;// 아이디는 있으나 비번이 틀림
+					ri = MemberDAO.MEMBER_LOGIN_PW_NO_GOOD;// 아이디는 있으나 비번이 틀림 0
 				}			
 			
 			
 			} else {
-				ri = MemberDAO.MEMBER_LOGIN_IS_NOT;// 아이디가 없음. 회원이 아님.
+				ri = MemberDAO.MEMBER_LOGIN_IS_NOT;// 아이디가 없음. 회원이 아님 -1
 			}
 			
 			
@@ -153,6 +153,45 @@ public class MemberDAO {
 		
 		return ri;
 	}
+	
+	public String getMemberName(String id) {
+		
+		String memberName="";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "select name from memberex where id = ?";
+				
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				memberName = rs.getString("name");
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return memberName;
+	}
+	
 	
 	
 	
