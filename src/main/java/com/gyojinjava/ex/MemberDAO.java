@@ -105,6 +105,57 @@ public class MemberDAO {
 		return ri;
 	}
 	
+	public int userCheck(String id, String pw) {
+		int ri=0;
+		String dbPw;//DB에서 가져온 password
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "select pw from memberex where id = ?";
+				
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				dbPw = rs.getString("pw");
+				
+				if(dbPw.equals(pw)) {
+					ri = MemberDAO.MEMBER_LOGIN_SUCCESS;//로그인 성공
+				} else {
+					ri = MemberDAO.MEMBER_LOGIN_PW_NO_GOOD;// 아이디는 있으나 비번이 틀림
+				}			
+			
+			
+			} else {
+				ri = MemberDAO.MEMBER_LOGIN_IS_NOT;// 아이디가 없음. 회원이 아님.
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return ri;
+	}
+	
+	
+	
 	private Connection getConnection() {
 		
 		Context context = null;
