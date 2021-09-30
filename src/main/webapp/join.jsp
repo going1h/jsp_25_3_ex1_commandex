@@ -5,7 +5,7 @@
 <head>
 <meta charset="EUC-KR">
 <title>join.jsp</title>
-<script language="JavaScript" src="members.js"></script>
+<script language="JavaScript" src="members.js" charset="UTF-8"></script>
 </head>
 <body>
 	<h1>회원가입을 위하여 아래 내용을 작성 후 회원가입 버튼을 눌러주세요</h1>

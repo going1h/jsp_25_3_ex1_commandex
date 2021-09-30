@@ -64,6 +64,47 @@ public class MemberDAO {
 		return ri;
 	}
 	
+	
+	public int confirmId(String id) {
+		int ri = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "select id from memberex where id = ?";
+				
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ri = MemberDAO.MEMBER_EXISTENT;
+			} else {
+				ri = MemberDAO.MEMBER_NONEXISTENT;
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return ri;
+	}
+	
 	private Connection getConnection() {
 		
 		Context context = null;
