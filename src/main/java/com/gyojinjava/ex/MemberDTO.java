@@ -1,5 +1,7 @@
 package com.gyojinjava.ex;
 
+import java.sql.Timestamp;
+
 public class MemberDTO {
 
 	private String id;
@@ -7,6 +9,7 @@ public class MemberDTO {
 	private String name;
 	private String email;
 	private String address;
+	private Timestamp rdate;
 	
 	public String getId() {
 		return id;
@@ -37,6 +40,12 @@ public class MemberDTO {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public Timestamp getRdate() {
+		return rdate;
+	}
+	public void setRdate(Timestamp rdate) {
+		this.rdate = rdate;
 	}
 	
 //	public MemberDTO() {

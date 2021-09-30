@@ -17,7 +17,8 @@
 		String id = (String)session.getAttribute("id");
 		dto.setId(id);
 	
-		MemberDAO dao = new MemberDAO();
+		MemberDAO dao = MemberDAO.getInstance();
+		// MemberDAO dao = new MemberDAO();
 		int ri = dao.updateMember(dto);
 		
 		if(ri==1){

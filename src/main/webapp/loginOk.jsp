@@ -19,7 +19,8 @@
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 	
-		MemberDAO dao = new MemberDAO();
+		MemberDAO dao = MemberDAO.getInstance();
+		//MemberDAO dao = new MemberDAO();
 		int checkNum = dao.userCheck(id, pw);
 		
 		if (checkNum == -1) { // 아이디 없음

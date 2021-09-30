@@ -20,9 +20,15 @@ public class MemberDAO {
 	public static final int MEMBER_LOGIN_PW_NO_GOOD = 0;
 	public static final int MEMBER_LOGIN_SUCCESS = 1;
 	public static final int MEMBER_LOGIN_IS_NOT = -1;
+	
+	private static MemberDAO instance = new MemberDAO();//singleton pattern : MemberDAO객체를 1개만 만들고 공유해서 모두가 사용하게 함
 
 	public MemberDAO() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public static MemberDAO getInstance() {
+		return instance;
 	}
 	
 	public int insertMember(MemberDTO dto) {
@@ -30,7 +36,7 @@ public class MemberDAO {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String query = "insert into memberex values (?,?,?,?,?)";
+		String query = "insert into memberex values (?,?,?,?,?,?)";
 		//ResultSet rs = null;
 		
 		
@@ -43,6 +49,7 @@ public class MemberDAO {
 			pstmt.setString(3, dto.getName());
 			pstmt.setString(4, dto.getEmail());
 			pstmt.setString(5, dto.getAddress());
+			pstmt.setTimestamp(6, dto.getRdate());
 			
 			pstmt.executeUpdate();
 			ri = MemberDAO.MEMBER_JOIN_SUCCESS;	
@@ -176,6 +183,7 @@ public class MemberDAO {
 				dto.setName(rs.getString("name"));
 				dto.setEmail(rs.getString("email"));
 				dto.setAddress(rs.getString("address"));
+				dto.setRdate(rs.getTimestamp("rdate"));
 			}
 			
 			

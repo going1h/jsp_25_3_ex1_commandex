@@ -1,3 +1,4 @@
+<%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ page import = "com.gyojinjava.ex.*" %>
@@ -18,7 +19,11 @@
 	<%
 	//String id = dto.getId();
 	//out.println(idr);
-	MemberDAO dao = new MemberDAO();
+	
+	dto.setRdate(new Timestamp(System.currentTimeMillis())) ;//서버의 현재시간을 추출
+	
+	MemberDAO dao = MemberDAO.getInstance();
+	//MemberDAO dao = new MemberDAO();
 	//int ri = dao.insertMember(dto);//ri값이 반환됨 성공1 실패 0
 	
 	if(dao.confirmId(dto.getId()) == MemberDAO.MEMBER_EXISTENT) {
